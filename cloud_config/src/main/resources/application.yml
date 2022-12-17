@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    include: native
+  application:
+    name: setting-api
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:configs/,classpath:configs/{application}
