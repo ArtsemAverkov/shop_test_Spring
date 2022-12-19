@@ -17,4 +17,15 @@ public class MetaInfProduct {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     boolean isDiscount;
+
+    public MetaInfProduct(boolean isDiscount) {
+        this.isDiscount = isDiscount;
+    }
+
+    @Override
+    public String toString() {
+        return "MetaInfProduct{" + '\n'+
+                ", isDiscount=" + isDiscount + '\n'+
+                '}';
+    }
 }

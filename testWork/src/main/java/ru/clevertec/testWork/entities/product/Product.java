@@ -1,6 +1,7 @@
 package ru.clevertec.testWork.entities.product;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,22 @@ public class Product {
     private  String name;
     private  double price;
     private  Long amount;
-    private  boolean isDiscount;
     private LocalDate localDate;
+    private double sum;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JoinColumn(name = "discountId", nullable = false)
+    private MetaInfProduct metaInfProduct;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                " id= " + id + '\'' + '\n'+
+                ", name='" + name + '\'' + '\n'+
+                ", price=" + price + '\n'+
+                ", amount=" + amount + '\n'+
+                ", localDate=" + localDate + '\n'+
+                ", metaInfProduct=" + metaInfProduct + '\n';
+    }
 }

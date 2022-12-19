@@ -13,13 +13,13 @@ import java.time.LocalDate;
 public class ProductDto {
 
     private long id;
-    @NotBlank
+
     private String name;
-    @NotBlank
+
     private long price;
-    @NotBlank
+
     private long amount;
-    @NotBlank
+
     private boolean isDiscount;
     private LocalDate dateInserting = LocalDate.now();
 
