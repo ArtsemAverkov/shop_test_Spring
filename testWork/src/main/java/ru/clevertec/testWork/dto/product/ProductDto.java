@@ -9,9 +9,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ProductDto {
     private long id;
+    @NonNull
     private String name;
-    private long price;
+    @NonNull
+    private double price;
+    @NonNull
     private long amount;
+    @NonNull
     private boolean isDiscount = true;
     private LocalDate dateInserting = LocalDate.now();
 

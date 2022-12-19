@@ -24,7 +24,7 @@ public class Product {
     private Long id;
     private  String name;
     private  double price;
-    private  Long amount;
+    private  long amount;
     private LocalDate localDate;
     private double sum;
 
