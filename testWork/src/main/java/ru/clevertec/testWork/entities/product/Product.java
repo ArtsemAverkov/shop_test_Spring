@@ -41,6 +41,7 @@ public class Product {
                 ", price=" + price + '\n'+
                 ", amount=" + amount + '\n'+
                 ", localDate=" + localDate + '\n'+
-                ", metaInfProduct=" + metaInfProduct + '\n';
+                ", metaInfProduct=" + metaInfProduct + '\n'+
+                ", sum=" + sum + '\n';
     }
 }

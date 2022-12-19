@@ -29,19 +29,22 @@ public record ShopController(ProductService productService) {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Long createBooks(@RequestBody @Valid ProductDto productDto) {
+        System.out.println("productDto = " + productDto);
         return productService.create(productDto);
     }
 
     /**
      * this method searches the books database
-     *
      * @param id get from server
+     * @param amount get from server
+     * @param discount get from server
+     * @param idDiscount get from server
      * @return book
      */
 
     @GetMapping("/check")
     @ResponseStatus(HttpStatus.OK)
-    public Product getCheck(@RequestParam(value = "id") List<Long> id,
+    public List<Object> getCheck(@RequestParam(value = "id") List<Long> id,
                                @RequestParam(value = "amount") List<Long> amount,
                             @RequestParam(value = "discount") String discount,
                             @RequestParam(value = "idDiscount") Long idDiscount) {

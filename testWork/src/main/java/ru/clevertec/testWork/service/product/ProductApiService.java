@@ -3,9 +3,7 @@ package ru.clevertec.testWork.service.product;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.clevertec.testWork.dto.product.ProductDto;
-
 import ru.clevertec.testWork.entities.product.MetaInfProduct;
 import ru.clevertec.testWork.entities.product.Product;
 import ru.clevertec.testWork.repository.product.ProductRepository;
@@ -16,6 +14,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -34,8 +33,9 @@ public record ProductApiService(
     }
 
     @Override
-    public Product getCheck(List<Long> id, List<Long> amount, Long idDiscount, String discount) {
+    public List<Object> getCheck(List<Long> id, List<Long> amount, Long idDiscount, String discount) {
         List<Product> productList = getProducts(id, amount);
+        List<String> sumCheck = new ArrayList<>();
 
         Consumer<Product> productConsumer = getProductConsumer(productList);
 
@@ -56,8 +56,11 @@ public record ProductApiService(
         System.out.println("discount = " + discount);
         System.out.println("sum = " + sum);
         System.out.println("sumAfterDiscount = " + sumAfterDiscount);
-        Long aLong = id.get(0);
-        return productRepository.findById(aLong).get();
+        sumCheck.add("Sum :" +sum);
+        sumCheck.add("Sum After Discount :"+sumAfterDiscount);
+        List<Object> collect = Stream.concat(productList.stream(), sumCheck.stream())
+                .collect(Collectors.toList());
+        return collect;
     }
 
     @Override
@@ -138,4 +141,5 @@ public record ProductApiService(
                 .forEach(productConsumer);
         return productConsumer;
     }
+
 }
