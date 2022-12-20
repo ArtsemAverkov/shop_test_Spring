@@ -48,16 +48,6 @@ public record ProductApiService(
         double sumAfterDiscount = productList.stream()
                 .map(Product::getSum)
                 .mapToDouble(f -> f).sum();
-
-        System.out.println("id = " + id);
-        System.out.println("amount = " + amount);
-        System.out.println("productList = " + productList);
-        System.out.println("idDiscount = " + idDiscount);
-        System.out.println("discount = " + discount);
-        System.out.println("sum = " + sum);
-        System.out.println("sumAfterDiscount = " + sumAfterDiscount);
-        sumCheck.add("Sum :" +sum);
-        sumCheck.add("Sum After Discount :"+sumAfterDiscount);
         List<Object> collect = Stream.concat(productList.stream(), sumCheck.stream())
                 .collect(Collectors.toList());
         return collect;

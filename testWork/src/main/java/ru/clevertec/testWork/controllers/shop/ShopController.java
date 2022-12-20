@@ -29,7 +29,6 @@ public record ShopController(ProductService productService) {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Long createBooks(@RequestBody @Valid ProductDto productDto) {
-        System.out.println("productDto = " + productDto);
         return productService.create(productDto);
     }
 

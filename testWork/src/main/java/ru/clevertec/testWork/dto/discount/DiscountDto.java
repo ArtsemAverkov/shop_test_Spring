@@ -10,7 +10,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DiscountDto {
-
+    @NonNull
     private long id;
     @NonNull
     private String name;

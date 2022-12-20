@@ -36,7 +36,7 @@ public record DiscountController(DiscountService discountService) {
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Discount readBooks(@PathVariable Long id){
+    public Discount readDiscount(@PathVariable Long id){
         return discountService.read(id);
     }
     /**
@@ -50,7 +50,7 @@ public record DiscountController(DiscountService discountService) {
     @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE, path = "{id}")
     @ResponseStatus(HttpStatus.OK)
-    public boolean updateProduct(@PathVariable Long id, @RequestBody @Valid DiscountDto discountDto) {
+    public boolean updateDiscount(@PathVariable Long id, @RequestBody @Valid DiscountDto discountDto) {
         return discountService.update(discountDto, id);
     }
 
