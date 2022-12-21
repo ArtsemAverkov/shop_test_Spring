@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  postgres:
+    build:
+      context: services/postgres
+      dockerfile: Dockerfile
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=artemaverkov
+      - POSTGRES_DB=root
+      - POSTGRES_PASSWORD=root
+
+  app:
+    build:
+      context: services/app
+      dockerfile: Dockerfile
+    environment:
+      - PORT=8091
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/root
+      - JS_URL=http://localhost
+    image: 'my-java-application'
+    ports:
+      - 8091:8091
+    depends_on:
+      - postgres
