@@ -2,6 +2,9 @@
 Используемый стек: java-17 Spring-boot Hibernate Grade Posgresql Docker Unit 5 Mockito
 
 Приложение развернул в Docker все работает.
+app-1 589d8773e48b65c00c8575177a09a7ce3ca627554199a22833c7a0ad0e169f4e
+posgres-1 57b2358e4d4d12317afc84121e85a7d60e27edfdec771cf5d60bd660f1c1bc33
+
 
 Запроссы в Controller;
 
