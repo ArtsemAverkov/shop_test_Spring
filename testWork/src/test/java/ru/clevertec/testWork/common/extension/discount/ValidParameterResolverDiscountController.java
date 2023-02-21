@@ -8,6 +8,7 @@ import ru.clevertec.testWork.dto.discount.DiscountDto;
 
 import java.util.Random;
 
+
 public class ValidParameterResolverDiscountController implements ParameterResolver {
     private final static long id = new Random().nextLong();
     private static DiscountDto discountDto = new DiscountDto(id,"CARD_1234");

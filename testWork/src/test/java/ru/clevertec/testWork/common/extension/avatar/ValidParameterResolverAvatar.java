@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+
 public class ValidParameterResolverAvatar implements ParameterResolver {
         public static MultipartFile createMultipartFile (){
         Path path = Paths.get(

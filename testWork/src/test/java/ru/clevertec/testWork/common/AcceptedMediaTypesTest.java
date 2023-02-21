@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 @DisplayName("Test Accepted Media Types")
 public class AcceptedMediaTypesTest {
     private static final MediaType[] SUPPORTED_MEDIA_TYPES = new MediaType[]{MediaType.APPLICATION_JSON,

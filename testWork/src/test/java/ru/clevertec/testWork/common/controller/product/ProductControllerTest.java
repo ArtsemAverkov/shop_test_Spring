@@ -26,7 +26,6 @@ import ru.clevertec.testWork.service.product.ProductService;
 
 import java.util.stream.Stream;
 
-
 @DisplayName("Shop Controller Test")
 @WebMvcTest(ShopController.class)
 @RunWith(SpringRunner.class)

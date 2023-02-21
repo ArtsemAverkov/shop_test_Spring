@@ -20,6 +20,7 @@ import ru.clevertec.testWork.controllers.image.ImageController;
 import ru.clevertec.testWork.entities.avatarProduct.AvatarProduct;
 import ru.clevertec.testWork.service.avatarProduct.ImageService;
 
+
 @DisplayName("Testing Avatar Controller")
 @WebMvcTest(ImageController.class)
 @RunWith(SpringRunner.class)

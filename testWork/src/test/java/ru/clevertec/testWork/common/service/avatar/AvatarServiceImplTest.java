@@ -12,8 +12,6 @@ import ru.clevertec.testWork.common.extension.avatar.ValidParameterResolverAvata
 import ru.clevertec.testWork.entities.avatarProduct.AvatarProduct;
 import ru.clevertec.testWork.service.avatarProduct.ImageApiService;
 
-
-
 @DisplayName("Testing Avatar Service for Valid and Invalid")
 public class AvatarServiceImplTest {
     @Nested

@@ -25,6 +25,7 @@ import ru.clevertec.testWork.entities.discount.Discount;
 import ru.clevertec.testWork.service.discount.DiscountService;
 import java.util.Random;
 
+
     @DisplayName("Testing Discount Controller")
     @WebMvcTest(DiscountController.class)
     @RunWith(SpringRunner.class)

@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+
 public class ValidParameterResolverDiscount implements ParameterResolver {
     public static List<DiscountDto> validDiscount = Arrays.asList(
             new DiscountDto(

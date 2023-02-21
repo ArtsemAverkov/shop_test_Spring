@@ -24,6 +24,7 @@ import ru.clevertec.testWork.service.discount.DiscountService;
 
 import java.util.NoSuchElementException;
 
+
 @DisplayName("Testing Exception Controller")
 @WebMvcTest(DiscountController.class)
 @RunWith(SpringRunner.class)

@@ -9,6 +9,7 @@ import ru.clevertec.testWork.dto.product.ProductDto;
 import java.time.LocalDate;
 import java.util.Random;
 
+
 public class ValidParameterResolverProductForController implements ParameterResolver {
     private static long id = new Random().nextLong();
     private static ProductDto productDto = new ProductDto(
