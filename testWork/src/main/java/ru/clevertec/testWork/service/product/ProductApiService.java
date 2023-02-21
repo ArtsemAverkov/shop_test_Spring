@@ -56,32 +56,27 @@ public record ProductApiService(
     @Override
     public boolean update(ProductDto productDto, Long id) {
         Product read = read(id);
-        if (Objects.nonNull(read)) {
             Product product = buildProduct(productDto);
             product.setId(id);
             productRepository.save(product);
             return true;
-        }
-        return false;
     }
 
     @Override
     public boolean delete(Long id) {
         Product read = read(id);
-        if (Objects.nonNull(read)) {
             productRepository.deleteById(id);
             return true;
-        }
-        return false;
     }
 
     @Override
     public List<Product> readAll(Pageable pageable) {
-        return productRepository.findAll(pageable).toList();
+        return productRepository.findAll();
     }
 
    private Product buildProduct(ProductDto productDto) {
         return Product.builder()
+                .id(productDto.getId())
                 .name(productDto.getName())
                 .price(productDto.getPrice())
                 .amount(productDto.getAmount())

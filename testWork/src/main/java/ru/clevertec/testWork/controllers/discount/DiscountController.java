@@ -74,8 +74,7 @@ public record DiscountController(DiscountService discountService) {
      */
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Discount> readDiscount(@PageableDefault(page = 0)
-                                     @SortDefault(sort = "name") Pageable pageable) {
+    public List<Discount> readDiscount(@PageableDefault(page = 0) Pageable pageable) {
         return discountService.readAll(pageable);
     }
 }
