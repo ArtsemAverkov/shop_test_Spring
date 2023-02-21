@@ -33,7 +33,7 @@ public record DiscountApiService
             Discount discount = buildDiscount(discountDto);
             discount.setId(id);
             discountRepository.save(discount);
-        return false;
+        return true;
     }
 
     @Override

@@ -24,6 +24,9 @@ import ru.clevertec.testWork.entities.discount.Discount;
 import ru.clevertec.testWork.entities.product.Product;
 import ru.clevertec.testWork.service.product.ProductService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 @DisplayName("Shop Controller Test")

@@ -17,6 +17,11 @@ import ru.clevertec.testWork.entities.discount.Discount;
 import ru.clevertec.testWork.repository.discount.DiscountRepository;
 import ru.clevertec.testWork.service.discount.DiscountApiService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+
 @DisplayName("Testing Discount Service for Valid and Invalid")
 public class DiscountServiceImplTest {
     @Nested
