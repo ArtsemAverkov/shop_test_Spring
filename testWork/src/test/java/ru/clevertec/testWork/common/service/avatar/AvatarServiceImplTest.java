@@ -1,9 +1,6 @@
 package ru.clevertec.testWork.common.service.avatar;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -22,13 +19,13 @@ public class AvatarServiceImplTest {
         @InjectMocks
         private ImageApiService imageApiService;
 
-        @RepeatedTest(1)
+        @Test
         void shouldGetImageWheImageIsInvalid(AvatarProduct avatarProduct) {
             Assertions.assertThrows(NullPointerException.class,
                     () -> imageApiService.getImageForProduct(avatarProduct.getId()));
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldSaveImageWheImageIsInvalid(AvatarProduct avatarProduct) {
             Assertions.assertThrows(NullPointerException.class,
                     () -> imageApiService.saveImageForProduct(avatarProduct.getId(),

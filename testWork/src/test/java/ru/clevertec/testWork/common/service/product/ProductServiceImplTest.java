@@ -1,9 +1,6 @@
 package ru.clevertec.testWork.common.service.product;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -45,7 +42,7 @@ public class ProductServiceImplTest  {
         @Mock
         private static DiscountRepository discountRepository;
 
-        @RepeatedTest(1)
+        @Test
         void shouldGetProductWhenProductValid(ProductDto productDto) {
             Product product = buildProduct(productDto);
             Mockito.when(productRepository.findById(productDto.getId())).thenReturn(Optional.of(product));
@@ -53,7 +50,7 @@ public class ProductServiceImplTest  {
             Mockito.verify(productRepository, Mockito.times(1)).findById(product.getId());
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldDeleteProductWhenProductsIsValid(ProductDto productDto) {
             Product product = buildProduct(productDto);
             Mockito.when(productRepository.findById(productDto.getId())).thenReturn(Optional.of(product));
@@ -61,7 +58,7 @@ public class ProductServiceImplTest  {
             Mockito.verify(productRepository, Mockito.timeout(1)).deleteById(product.getId());
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldUpdateProductWhenProductIsValid(ProductDto productDto){
             Product product = buildProduct(productDto);
             Mockito.when(productRepository.findById(product.getId())).thenReturn(Optional.of(product));
@@ -69,7 +66,7 @@ public class ProductServiceImplTest  {
             Mockito.verify(productRepository, Mockito.times(1)).save(product);
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldCreateProductWhenProductIsValid(ProductDto productDto){
             Product product = buildProduct(productDto);
             Mockito.when(productRepository.save(product)).thenReturn(product);
@@ -77,7 +74,7 @@ public class ProductServiceImplTest  {
             Mockito.verify(productRepository, Mockito.times(1)).save(product);
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldGetCheckWhenProductIsValid(ProductDto productDto) {
             final Discount discount = new Discount();
             discount.setId(1L);
@@ -95,7 +92,7 @@ public class ProductServiceImplTest  {
             Mockito.verify(productRepository, Mockito.times(1)).findById(productDto.getId());
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldReadAllProductWhenProductIsValid(ProductDto productDto) {
             Product product = buildProduct(productDto);
             List<Product> productList = new ArrayList<>();
@@ -131,33 +128,33 @@ public class ProductServiceImplTest  {
                     () -> productService.update(productDto,null));
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldCreateProductWheProductIsInvalid (){
             Assertions.assertThrows(NullPointerException.class,
                     () -> productService.create(null));
 
         }
-        @RepeatedTest(1)
+        @Test
         void shouldDeleteProductWheProductIsInvalid (){
             Assertions.assertThrows(NullPointerException.class,
                     () -> productService.delete(null));
 
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldGetProductWheProductIsInvalid (ProductDto productDto){
             Assertions.assertThrows(NullPointerException.class,
                     () -> productService.read(productDto.getId()));
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldGetCheckWhenProductIsInvalid(ProductDto productDto) {
             List<Long> list = new ArrayList<>();
             Assertions.assertThrows(NullPointerException.class,
                     () -> productService.getCheck(list, list, 1L,"CARD-XXXX"));
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldReadAllProductWhenProductIsInvalid(ProductDto productDto) {
             Assertions.assertThrows(IllegalArgumentException.class,
                     () -> productService.readAll(Pageable.ofSize(0).withPage(0)));

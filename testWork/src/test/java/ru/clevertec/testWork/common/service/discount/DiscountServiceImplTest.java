@@ -1,9 +1,6 @@
 package ru.clevertec.testWork.common.service.discount;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -33,7 +30,7 @@ public class DiscountServiceImplTest {
         @Mock
         private static DiscountRepository discountRepository;
 
-        @RepeatedTest(1)
+        @Test
         void shouldGetDiscountWhenDiscountValid(DiscountDto discountDto) {
             Discount discount = buildDiscount(discountDto);
             Mockito.when(discountRepository.findById(discount.getId())).thenReturn(Optional.of(discount));
@@ -41,7 +38,7 @@ public class DiscountServiceImplTest {
             Mockito.verify(discountRepository, Mockito.times(1)).findById(discount.getId());
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldDeleteDiscountWhenDiscountIsValid(DiscountDto discountDto) {
             Discount discount = buildDiscount(discountDto);
             Mockito.when(discountRepository.findById(discount.getId())).thenReturn(Optional.of(discount));
@@ -49,7 +46,7 @@ public class DiscountServiceImplTest {
             Mockito.verify(discountRepository, Mockito.times(1)).deleteById(discount.getId());
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldUpdateDiscountWhenDiscountIsValid(DiscountDto discountDto) {
             Discount discount = buildDiscount(discountDto);
             Mockito.when(discountRepository.findById(discount.getId())).thenReturn(Optional.of(discount));
@@ -57,7 +54,7 @@ public class DiscountServiceImplTest {
             Mockito.verify(discountRepository, Mockito.times(1)).save(discount);
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldCreateDiscountWhenDiscountIsValid(DiscountDto discountDto) {
             Discount discount = buildDiscount(discountDto);
             Mockito.when(discountRepository.save(discount)).thenReturn(discount);
@@ -65,7 +62,7 @@ public class DiscountServiceImplTest {
             Mockito.verify(discountRepository, Mockito.times(1)).save(discount);
         }
 
-        @RepeatedTest(1)
+        @Test
         void shouldReadAllDiscountWhenDiscountIsValid(DiscountDto discountDto) {
             Discount discount = buildDiscount(discountDto);
             List<Discount> discountList = new ArrayList<>();
@@ -95,31 +92,31 @@ public class DiscountServiceImplTest {
             @InjectMocks
             private DiscountApiService discountService;
 
-            @RepeatedTest(1)
+            @Test
             void shouldUpdateDiscountWheDiscountIsInvalid (DiscountDto discountDto){
                 Assertions.assertThrows(NullPointerException.class,
                         () -> discountService.update(discountDto, null));
             }
 
-            @RepeatedTest(1)
+            @Test
             void shouldCreateDiscountWheDiscountIsInvalid (DiscountDto discountDto){
                 Assertions.assertThrows(NullPointerException.class,
                         () -> discountService.create(discountDto));
 
             }
-            @RepeatedTest(1)
+            @Test
             void shouldDeleteDiscountWheDiscountIsInvalid (){
                 Assertions.assertThrows(NullPointerException.class,
                         () -> discountService.delete(null));
 
             }
-            @RepeatedTest(1)
+            @Test
             void shouldGetDiscountWheDiscountIsInvalid (DiscountDto discountDto){
                 Assertions.assertThrows(NullPointerException.class,
                         () -> discountService.read(discountDto.getId()));
             }
 
-            @RepeatedTest(1)
+            @Test
             void shouldReadAllDiscountWhenDiscountIsInvalid(DiscountDto discountDto) {
                 Assertions.assertThrows(IllegalArgumentException.class,
                         () -> discountService.readAll(Pageable.ofSize(0).withPage(0)));
