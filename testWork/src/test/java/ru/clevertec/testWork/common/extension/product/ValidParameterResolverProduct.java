@@ -14,14 +14,14 @@ import java.util.Random;
 public class ValidParameterResolverProduct implements ParameterResolver {
     public static List<ProductDto> validProduct = Arrays.asList(
             new ProductDto(
-                    1,
+                    1L,
                     "Apple",
                     23,
                     4,
                     true,
                     LocalDate.now()),
             new ProductDto(
-                    2,
+                    2L,
                     "Banana",
                     44,
                     4,

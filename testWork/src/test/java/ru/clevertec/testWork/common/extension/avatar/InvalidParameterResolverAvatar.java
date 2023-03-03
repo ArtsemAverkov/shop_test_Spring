@@ -1,34 +1,36 @@
-package ru.clevertec.testWork.common.extension.discount;
+package ru.clevertec.testWork.common.extension.avatar;
 
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
-import ru.clevertec.testWork.dto.discount.DiscountDto;
+import ru.clevertec.testWork.entities.avatarProduct.AvatarProduct;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-
-public class ValidParameterResolverDiscount implements ParameterResolver {
-    public static List<DiscountDto> validDiscount = Arrays.asList(
-            new DiscountDto(
+public class InvalidParameterResolverAvatar implements ParameterResolver {
+    public static List<AvatarProduct> invalidAvatar = Arrays.asList(
+            new AvatarProduct(
                     1L,
-                    "CARD_1234"),
-            new DiscountDto(
+                    new byte[]{1, 1, 1, 1}),
+            new AvatarProduct(
                     2L,
-                    "CARD_2345"));
+                    new byte[]{1, 1, 1, 1}),
+            new AvatarProduct()
+    );
 
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
             throws ParameterResolutionException {
-        return parameterContext.getParameter().getType()==DiscountDto.class;
+
+        return parameterContext.getParameter().getType()==AvatarProduct.class;
     }
 
     @Override
     public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext)
             throws ParameterResolutionException {
-        return validDiscount.get(new Random().nextInt(validDiscount.size()));
+        return invalidAvatar.get(new Random().nextInt(invalidAvatar.size()));
     }
 }

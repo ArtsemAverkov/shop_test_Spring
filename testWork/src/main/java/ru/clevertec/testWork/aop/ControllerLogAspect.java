@@ -21,7 +21,6 @@ import java.util.Optional;
 @Component
 public class ControllerLogAspect extends BaseAspect{
 
-
     @Pointcut("execution(* com.example.library.controllers..*(..))")
     public void before(){
 

@@ -30,23 +30,17 @@ public record DiscountApiService
     @Override
     public boolean update(DiscountDto discountDto, Long id) {
         Discount read = read(id);
-        if (Objects.nonNull(read)) {
             Discount discount = buildDiscount(discountDto);
             discount.setId(id);
             discountRepository.save(discount);
-            return true;
-        }
-        return false;
+        return true;
     }
 
     @Override
     public boolean delete(Long id) {
         Discount read = read(id);
-        if (Objects.nonNull(read)) {
             discountRepository.deleteById(id);
             return true;
-        }
-        return false;
     }
 
     @Override

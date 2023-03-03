@@ -85,8 +85,7 @@ public record ShopController(ProductService productService) {
      */
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Product> readProduct(@PageableDefault(page = 0)
-                                     @SortDefault(sort = "name") Pageable pageable) {
+    public List<Product> readProduct(@PageableDefault(page = 0) Pageable pageable) {
         return productService.readAll(pageable);
     }
 }
