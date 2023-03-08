@@ -12,6 +12,7 @@ import ru.clevertec.testWork.repository.discount.DiscountRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 
 @Slf4j
@@ -25,12 +26,14 @@ public record DiscountApiService
         Discount discount = buildDiscount(discountDto);
         return discountRepository.save(discount).getId();
     }
+
     @Cacheable("myCache")
     @Override
     public Discount read(long id) {
         return discountRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
+    @Cacheable("myCache")
     @Override
     public boolean update(DiscountDto discountDto, Long id) {
         read(id);
@@ -40,11 +43,14 @@ public record DiscountApiService
         return true;
     }
 
+    @Cacheable("myCache")
     @Override
     public boolean delete(Long id) {
-       read(id);
+        if (Objects.nonNull(read(id))) {
             discountRepository.deleteById(id);
             return true;
+        }
+        return false;
     }
 
     @Override

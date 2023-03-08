@@ -1,8 +1,14 @@
 package ru.clevertec.testWork.aop.cache;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.*;
 
+@Slf4j
 public class LfuCache<K, V> implements CacheI<K,V>{
     private  int maxSize;
     private  Map<K, V> cache;
@@ -29,17 +35,15 @@ public class LfuCache<K, V> implements CacheI<K,V>{
         cache.put(key, value);
         frequencies.compute(key, (k, v) -> v == null ? 1 : v + 1);
         lfuQueue.offer(key);
-        System.out.println("cache = " + cache);
     }
 
     @Override
     public V get(K key) {
         V value = cache.get(key);
-        System.out.println("value = " + value);
         if (value != null) {
-            frequencies.compute(key, (k, v) -> v + 1);
-            lfuQueue.remove(key);
-            lfuQueue.offer(key);
+           frequencies.compute(key, (k, v) -> v + 1);
+           lfuQueue.remove(key);
+           lfuQueue.offer(key);
             return value;
         }
         return null;
@@ -49,7 +53,21 @@ public class LfuCache<K, V> implements CacheI<K,V>{
     public void remove(K key) {
         cache.remove(key);
         frequencies.remove(key);
-        lfuQueue.remove(key);
+        boolean b = lfuQueue.remove(key);
+    }
+
+    @Override
+    public void update(K key, V value) {
+        cache.put(key, value);
+        frequencies.compute(key, (k, v) -> v = 1);
+        lfuQueue.offer(key);
+    }
+
+    @Override
+    public String getCache() throws JsonProcessingException {
+        ObjectMapper mapper = new XmlMapper();
+        String s = mapper.writeValueAsString(cache);
+        return s;
     }
 }
 

@@ -34,7 +34,7 @@ public record DiscountController( DiscountService discountService) {
         return discountService.create(discountDto);
     }
 
-    @GetMapping("{id}")
+    @GetMapping(value = "{id}",produces = MediaType.APPLICATION_ATOM_XML_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Discount readDiscount(@PathVariable Long id){
         return discountService.read(id);
@@ -44,7 +44,7 @@ public record DiscountController( DiscountService discountService) {
      *
      * @param discountDto get from server
      * @param id         get from server
-     * @returт successful and unsuccessful update
+     * @return successful and unsuccessful update
      */
 
     @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -73,7 +73,7 @@ public record DiscountController( DiscountService discountService) {
      * @return collection of all discount
      */
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_ATOM_XML_VALUE)
     public List<Discount> readDiscount(@PageableDefault(page = 0) Pageable pageable) {
         return discountService.readAll(pageable);
     }
