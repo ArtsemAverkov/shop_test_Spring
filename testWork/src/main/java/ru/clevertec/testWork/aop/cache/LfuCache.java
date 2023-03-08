@@ -53,7 +53,7 @@ public class LfuCache<K, V> implements CacheI<K,V>{
     public void remove(K key) {
         cache.remove(key);
         frequencies.remove(key);
-        boolean b = lfuQueue.remove(key);
+        lfuQueue.remove(key);
     }
 
     @Override

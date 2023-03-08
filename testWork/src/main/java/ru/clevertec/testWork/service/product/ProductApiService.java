@@ -3,6 +3,7 @@ package ru.clevertec.testWork.service.product;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.clevertec.testWork.aop.cache.Cacheable;
 import ru.clevertec.testWork.dto.product.ProductDto;
 import ru.clevertec.testWork.entities.product.MetaInfProduct;
 import ru.clevertec.testWork.entities.product.Product;
@@ -21,17 +22,21 @@ import java.util.stream.Stream;
 public record ProductApiService(
         ProductRepository productRepository,
         DiscountService discountService) implements ProductService {
+
+    @Cacheable("myCache")
     @Override
     public long create(ProductDto productDto) {
         Product product = buildProduct(productDto);
         return productRepository.save(product).getId();
     }
-    @Override
 
+    @Cacheable("myCache")
+    @Override
     public Product read(long id) {
         return productRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
+    @Cacheable("myCache")
     @Override
     public List<Object> getCheck(List<Long> id, List<Long> amount, Long idDiscount, String discount) {
         List<Product> productList = getProducts(id, amount);
@@ -53,6 +58,7 @@ public record ProductApiService(
         return collect;
     }
 
+    @Cacheable("myCache")
     @Override
     public boolean update(ProductDto productDto, Long id) {
         Product read = read(id);
@@ -62,6 +68,7 @@ public record ProductApiService(
             return true;
     }
 
+    @Cacheable("myCache")
     @Override
     public boolean delete(Long id) {
         Product read = read(id);

@@ -14,4 +14,4 @@ spring:
     proxy-target-class: false
 cache:
   max-size: 5
-  algorithm: LRU
+  algorithm: LFU

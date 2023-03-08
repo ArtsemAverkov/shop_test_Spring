@@ -24,12 +24,13 @@ public class CacheFactory {
     }
 
     public <K, V> CacheI<K, V> createCache() {
-        if ("LRU".equalsIgnoreCase(algorithm)) {
-            return new LruCache<>(maxSize);
-        } else if ("LFU".equalsIgnoreCase(algorithm)) {
-            return new LfuCache<>(maxSize);
-        } else {
-            throw new IllegalArgumentException("Invalid cache algorithm: " + algorithm);
+        switch (algorithm.toUpperCase()) {
+            case "LRU":
+                return new LruCache<>(maxSize);
+            case "LFU":
+                return new LfuCache<>(maxSize);
+            default:
+                throw new IllegalArgumentException("Invalid cache algorithm: " + algorithm);
         }
     }
 }

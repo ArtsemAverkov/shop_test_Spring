@@ -58,8 +58,9 @@ dependencies {
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.1'
 	testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.10.0'
 	testImplementation group: 'org.junit.platform', name: 'junit-platform-runner', version: '1.9.1'
-	testImplementation 'org.testcontainers:postgresql:1.17i6'
+
 	testImplementation 'org.testcontainers:junit-jupiter:1.17.6'
+	testImplementation 'org.testcontainers:postgresql:1.17.6'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
 // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.2'

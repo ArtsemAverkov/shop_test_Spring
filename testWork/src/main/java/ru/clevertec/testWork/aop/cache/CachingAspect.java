@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Aspect
 @Component
 public class CachingAspect  {
-    CacheI cacheI = new LfuCache();
+
     private final Map<String, CacheI<String, Object>> caches = new ConcurrentHashMap<>();
     @Autowired
     private CacheFactory cacheFactory;
