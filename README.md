@@ -1,82 +1,25 @@
+# Привет, я ![Артем](https://www.linkedin.com/in/артем-аверков-aa7663239/) 
+Введение
+Этот проект представляет собой Java-приложение, которое [кратко опишите, что делает проект]выводит чек купленных товаров у. Приложение построено с использованием 17 Java и использует [Spring-boot Hibernate Grade Posgresql Docker Unit 5 Mockito] для достижения своей функциональности.
 
-# shop_test_Spring
-Используемый стек: java-17 Spring-boot Hibernate Grade Posgresql Docker Unit 5 Mockito
+Начиная
+Чтобы начать работу с этим проектом, на вашем компьютере должна быть установлена ​​17 Java. Вы можете загрузить и установить последнюю версию Java с сайта https://www.oracle.com/java/.
 
-Приложение развернул в Docker все работает.
-app-1 589d8773e48b65c00c8575177a09a7ce3ca627554199a22833c7a0ad0e169f4e
-posgres-1 57b2358e4d4d12317afc84121e85a7d60e27edfdec771cf5d60bd660f1c1bc33
+Далее вам нужно будет скачать исходный код проекта с ![GitHub](https://github.com/ArtsemAverkov/shop_test_Spring.git)  Получив исходный код, вы можете импортировать проект в  среду IDE IntelliJ и запустить его оттуда.
+
+Применение
+Чтобы использовать приложение, нужно использовать например Postman, по методу GET перейти по Localhost:8080/product чтобы получить все товары потом по методу Get
+http://localhost:8080/product/check?id=3&amount=6&id=2&amount=1&id=1&amount=2&id=4&amount=3&id=5&amount=4&id=6&amount=5&discount=CARD_1234&idDiscount=1 где Id это Id товара, amount количество и CARD это скиданная карта, возвращаеться чек по условию: -подсчитываться стоимость исходя из количества, -если акционных товаров больше 5 то для них подсчитывает скидка 10 процентов, -возвращается общая сумма и сумма после скидки.
 
 
-Запроссы в Controller;
+Функции
+Приложение имеет следующие возможности:
+Вывод чека,
+Получение, запись, удаление, обновление и получения всех продуктов
+Получение, запись, удаление, обновление и получения всех дискретных карт,
+Получить и сохранить аватар продукта.
 
-Create Discount:
 
-Post Localhost:8080/discount
-
-{ "id": 1, "name": «CARD_1111" }
-
-Return: int
-
-Read Discount:
-
-Get Localhost:8080/discount/{id}
-
-Return: { "id": 1, "name": «CARD_1111" }
-
-Update Discount:
-
-Pach Localhost:8080/discount/{id} { "id": 1, "name": «CARD_1111" }
-
-Return: boolean
-
-Delete Discount:
-
-Delete
-
-Localhost:8080/discount/{id}
-
-Return: boolean
-
-Read All Discount:
-
-Get Localhost:8080/discount
-
-Return: all
-
-Create Product:
-
-Post Localhost:8080/product { "id": 30, "name": "apple", "price": 31.96, "amount": 73, "isDiscount": true, "dateInserting": "2021-05-12" }
-
-Return: int
-
-Get Check:
-
-Get
-
-http://localhost:8080/product/check?id=3&amount=6&id=2&amount=1&id=1&amount=2&id=4&amount=3&id=5&amount=4&id=6&amount=5&discount=CARD_1234&idDiscount=1
-
-Return: возвращаются продукты по условию: -подсчитываться стоимость исходя из количества, -если акционных товаров больше 5 то для них подсчитывает скидка 10 процентов, -возвращается общая сумма и сумма после скидки
-
-{ "id": 30, "name": "apple", "price": 31.96, "amount": 73, "isDiscount": true, "dateInserting": "2021-05-12" }
-
-Update Product:
-
-Pach
-
-Localhost:8080/product/{id} { "id": 30, "name": "apple", "price": 31.96, "amount": 10, "isDiscount": true, "dateInserting": "2021-05-12" } Return: boolean
-
-Delete Product:
-
-Delete
-
-Localhost:8080/product/{id}
-
-Return: boolean
-
-Read All Product:
-
-Get
-
-Localhost:8080/product
-
-Return: all
+Заключение
+Благодарим вас за интерес к этому Java-проекту. Если у вас есть какие-либо вопросы или отзывы, пожалуйста, не стесняйтесь 
+![linkedin](https://www.linkedin.com/in/артем-аверков-aa7663239/).
