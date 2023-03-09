@@ -3,6 +3,7 @@ package ru.clevertec.testWork.service.product;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.clevertec.testWork.aop.cache.Cacheable;
 import ru.clevertec.testWork.dto.product.ProductDto;
 import ru.clevertec.testWork.entities.product.MetaInfProduct;
 import ru.clevertec.testWork.entities.product.Product;
@@ -16,22 +17,55 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ This package contains the implementation of the ProductService interface for managing products.
+ The implementation includes methods for creating, reading, updating, and deleting products, as well as
+ getting a list of all products and getting a check for a list of products.
+ @author Artsem Averkov
+ @version 1.0
+ */
+
 @Slf4j
 @Service
 public record ProductApiService(
         ProductRepository productRepository,
         DiscountService discountService) implements ProductService {
+
+    /**
+     * Creates a new product based on the provided ProductDto.
+     * @param productDto the ProductDto object containing the data for the new product.
+     * @return the id of the created product.
+     */
+    @Cacheable("myCache")
     @Override
     public long create(ProductDto productDto) {
         Product product = buildProduct(productDto);
         return productRepository.save(product).getId();
     }
-    @Override
 
+    /**
+     * Retrieves the product with the specified id.
+     * @param id the id of the product to retrieve.
+     * @return the Product object with the specified id.
+     * @throws NoSuchElementException if no product exists with the specified id.
+     */
+
+    @Cacheable("myCache")
+    @Override
     public Product read(long id) {
         return productRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
+    /**
+     * Retrieves a list of Product and String objects representing a check for a list of products.
+     * @param id        the list of product ids.
+     * @param amount    the list of product amounts.
+     * @param idDiscount the id of the discount to be applied.
+     * @param discount  the type of discount to be applied.
+     * @return a list of Product and String objects representing the check.
+     */
+
+    @Cacheable("myCache")
     @Override
     public List<Object> getCheck(List<Long> id, List<Long> amount, Long idDiscount, String discount) {
         List<Product> productList = getProducts(id, amount);
@@ -52,7 +86,14 @@ public record ProductApiService(
                 .collect(Collectors.toList());
         return collect;
     }
-
+    /**
+     * Updates the product with the specified id based on the provided ProductDto.
+     *
+     * @param productDto the ProductDto object containing the updated data for the product.
+     * @param id         the id of the product to update.
+     * @return true if the update was successful, false otherwise.
+     */
+    @Cacheable("myCache")
     @Override
     public boolean update(ProductDto productDto, Long id) {
         Product read = read(id);
@@ -62,6 +103,13 @@ public record ProductApiService(
             return true;
     }
 
+    /**
+     Caches the results of the read method in a cache named "myCache".
+     @param id the id of the product to delete
+     @return true if the product was successfully deleted, false otherwise
+     */
+
+    @Cacheable("myCache")
     @Override
     public boolean delete(Long id) {
         Product read = read(id);
@@ -69,10 +117,22 @@ public record ProductApiService(
             return true;
     }
 
+    /**
+     Retrieves all products from the database using the provided Pageable object.
+     @param pageable an object that provides pagination information for the results
+     @return a list of all products in the database
+     */
+
     @Override
     public List<Product> readAll(Pageable pageable) {
         return productRepository.findAll();
     }
+
+    /**
+     Builds a Product object from a ProductDto object.
+     @param productDto the ProductDto object to build the Product object from
+     @return a Product object that was built from the ProductDto object
+     */
 
    private Product buildProduct(ProductDto productDto) {
         return Product.builder()
@@ -84,6 +144,15 @@ public record ProductApiService(
                 .localDate(LocalDate.now())
                 .build();
     }
+
+    /**
+
+    Applies a discount to a list of products if certain conditions are met.
+    @param idDiscount the id of the discount to apply
+    @param discount a string containing information about the discount
+    @param productList a list of products to apply the discount to
+    @param productConsumer a Consumer object that will be used to update the products
+    */
 
     private void setDiscountInProduct(Long idDiscount, String discount, List<Product> productList, Consumer<Product> productConsumer) {
         productList.stream()
@@ -102,6 +171,13 @@ public record ProductApiService(
         }
     }
 
+    /**
+     Retrieves a list of products from the database using a list of ids and a list of amounts.
+     @param id a list of ids to retrieve products for
+     @param amount a list of amounts to set for each product
+     @return a list of products retrieved from the database
+     */
+
     private List<Product> getProducts(List<Long> id, List<Long> amount) {
         int x = 0;
         List<Product> productList = new ArrayList<>();
@@ -112,6 +188,12 @@ public record ProductApiService(
         }
         return productList;
     }
+
+    /**
+     Returns a Consumer object that can be used to update a list of products.
+     @param productList the list of products to update
+     @return a Consumer object that can be used to update the products
+     */
 
     private Consumer<Product> getProductConsumer(List<Product> productList) {
         Consumer<Product> productConsumer =

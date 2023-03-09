@@ -4,20 +4,21 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import ru.clevertec.testWork.aop.loger.ExcludeLog;
 import ru.clevertec.testWork.dto.discount.DiscountDto;
 import ru.clevertec.testWork.entities.discount.Discount;
 import ru.clevertec.testWork.service.discount.DiscountService;
 
 import java.util.List;
 
+@ExcludeLog
 @Slf4j
 @RestController
 @RequestMapping("/discount")
-public record DiscountController(DiscountService discountService) {
+public record DiscountController( DiscountService discountService) {
 
     /**
      * this method creates a new discount
@@ -33,7 +34,7 @@ public record DiscountController(DiscountService discountService) {
         return discountService.create(discountDto);
     }
 
-    @GetMapping("{id}")
+    @GetMapping(value = "{id}",produces = MediaType.APPLICATION_ATOM_XML_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public Discount readDiscount(@PathVariable Long id){
         return discountService.read(id);
@@ -43,7 +44,7 @@ public record DiscountController(DiscountService discountService) {
      *
      * @param discountDto get from server
      * @param id         get from server
-     * @returт successful and unsuccessful update
+     * @return successful and unsuccessful update
      */
 
     @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -57,7 +58,7 @@ public record DiscountController(DiscountService discountService) {
      * this method removes the discount from the database
      *
      * @param id get from server
-     * @returт successful and unsuccessful delete
+     * @return successful and unsuccessful delete
      */
 
     @DeleteMapping("{id}")
@@ -72,7 +73,7 @@ public record DiscountController(DiscountService discountService) {
      * @return collection of all discount
      */
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_ATOM_XML_VALUE)
     public List<Discount> readDiscount(@PageableDefault(page = 0) Pageable pageable) {
         return discountService.readAll(pageable);
     }

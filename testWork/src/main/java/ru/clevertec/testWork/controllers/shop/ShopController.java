@@ -41,7 +41,7 @@ public record ShopController(ProductService productService) {
      * @return book
      */
 
-    @GetMapping("/check")
+    @GetMapping(value = "/check", produces = MediaType.APPLICATION_ATOM_XML_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<Object> getCheck(@RequestParam(value = "id") List<Long> id,
                                @RequestParam(value = "amount") List<Long> amount,
@@ -84,7 +84,7 @@ public record ShopController(ProductService productService) {
      * @return collection of all books
      */
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_ATOM_XML_VALUE)
     public List<Product> readProduct(@PageableDefault(page = 0) Pageable pageable) {
         return productService.readAll(pageable);
     }

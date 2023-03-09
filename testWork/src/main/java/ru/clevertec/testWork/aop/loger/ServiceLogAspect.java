@@ -1,4 +1,4 @@
-package ru.clevertec.testWork.aop;
+package ru.clevertec.testWork.aop.loger;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +18,11 @@ import java.util.Optional;
 @Aspect
 @Component
 public class ServiceLogAspect extends BaseAspect{
-
-    @Pointcut("execution(* com.example.library.services..*(..))")
+    @Pointcut("execution(* ru.clevertec.testWork.service..*(..))")
     public void before(){
 
     }
-    @Pointcut("execution(* com.example.library.services..*(..))" )
+    @Pointcut("execution(* ru.clevertec.testWork.service..*(..))")
     public void after(){
 
     }
