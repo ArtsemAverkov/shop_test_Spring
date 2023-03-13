@@ -76,3 +76,58 @@ left join (select book_ref, total_amount as price
 		   limit 1) min_sum
 on tickets.book_ref = min_sum.book_ref
 where  min_sum is not null;
+
+-- Написать DDL таблицы Customers , должны быть поля id , firstName, LastName, email , phone. Добавить ограничения на
+--     поля ( constraints).
+CREATE TABLE Customers (
+                   id SERIAL PRIMARY KEY,
+                   firstName CHARACTER VARYING(20) NOT NULL,
+                   LastName CHARACTER VARYING(20) NOT NULL,
+                   email CHARACTER VARYING(30) CONSTRAINT Customers_email_key UNIQUE,
+                   phone CHARACTER VARYING(20) CONSTRAINT customers_phone_key UNIQUE);
+
+-- Написать DDL таблицы Orders , должен быть id, customerId, quantity. Должен быть внешний ключ на таблицу customers +
+-- ограничения
+CREATE TABLE Orders (
+    id SERIAL PRIMARY KEY,
+    customerId INTEGER,
+    quantity INTEGER,
+    FOREIGN KEY (customerId) REFERENCES Customers (id) ON DELETE CASCADE,
+	CHECK(quantity>0 AND quantity<100)
+);
+
+ -- Написать 5 insert в эти таблицы
+INSERT INTO Customers (firstName,  LastName, email, phone)
+VALUES
+('Artsem', 'Averkov', 'temaaak@mail.ru', +37544505187),
+('Ivan', 'Ivanov', 'ivan@mail.ru', +3754411111),
+('Pavel', 'Pavlov', 'pavel@mail.ru', +3754422222),
+('Petr', 'Petrov', 'petr@mail.ru', +3754433333),
+('Semen', 'Semenov', 'semen@mail.ru', +3754444444);
+
+INSERT INTO Orders (customerId,  quantity)
+VALUES
+(8,1),
+(9,2),
+(10,3),
+(11,4),
+(12,5);
+
+-- удалить таблицы
+DROP TABLE Orders, Customers;
+
+--Вывести моделеи самолета
+--Которые имеют количество мест больше  средняго,  исключить места бизнес класса.
+
+SELECT aircrafts_data.aircraft_code,
+       aircrafts_data.model,
+       COUNT(seats.seat_no) AS Количество
+FROM aircrafts_data
+LEFT JOIN seats ON aircrafts_data.aircraft_code = seats.aircraft_code
+GROUP BY aircrafts_data.aircraft_code, aircrafts_data.model
+HAVING COUNT(seats.seat_no) < ALL (SELECT AVG(cnt)
+                                    FROM (SELECT COUNT(seat_no) AS cnt
+                                          FROM seats
+                                          WHERE seats.fare_conditions != 'Business'
+                                          GROUP BY aircraft_code) AS subquery)
+ORDER BY Количество;
