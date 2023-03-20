@@ -62,10 +62,14 @@ dependencies {
 	testImplementation 'org.testcontainers:junit-jupiter:1.17.6'
 	testImplementation 'org.testcontainers:postgresql:1.17.6'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
-// https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
+
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.2'
 	implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.4'
 
+	implementation 'org.apache.pdfbox:pdfbox:2.0.24'
+// https://mvnrepository.com/artifact/org.json/json
+	implementation 'org.json:json:20230227'
+	implementation 'com.itextpdf:itextpdf:5.5.13'
 	}
 
 

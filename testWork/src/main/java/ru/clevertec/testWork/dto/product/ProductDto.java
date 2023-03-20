@@ -20,8 +20,8 @@ public class ProductDto {
     @Min(1)
     private long amount;
     private boolean isDiscount;
-    @Pattern(regexp = "^(\\d...)-([0-1][0-9])-([0-3][0-9])")
-    @PastOrPresent
-    private LocalDate dateInserting;
+    //@Pattern(regexp = "^(\\d...)-([0-1][0-9])-([0-3][0-9])")
+    //@PastOrPresent
+    public LocalDate dateInserting;
 
 }

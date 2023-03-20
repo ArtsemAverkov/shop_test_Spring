@@ -32,8 +32,8 @@ public class Product {
     private  double price;
     @Min(1)
     private  long amount;
-    @Pattern(regexp = "^(\\d...)-([0-1][0-9])-([0-3][0-9])")
-    @PastOrPresent
+//    @Pattern(regexp = "^(\\d...)-([0-1][0-9])-([0-3][0-9])")
+//    @PastOrPresent
     private LocalDate localDate;
     @Min(1)
     private double sum;

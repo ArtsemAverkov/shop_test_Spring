@@ -1,8 +1,8 @@
 package ru.clevertec.testWork.service.product;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.clevertec.testWork.aop.cache.Cacheable;
 import ru.clevertec.testWork.dto.product.ProductDto;
 import ru.clevertec.testWork.entities.product.MetaInfProduct;
@@ -16,6 +16,8 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+
 
 /**
  This package contains the implementation of the ProductService interface for managing products.
@@ -38,6 +40,7 @@ public record ProductApiService(
      */
     @Cacheable("myCache")
     @Override
+    @Transactional
     public long create(ProductDto productDto) {
         Product product = buildProduct(productDto);
         return productRepository.save(product).getId();
@@ -67,9 +70,10 @@ public record ProductApiService(
 
     @Cacheable("myCache")
     @Override
-    public List<Object> getCheck(List<Long> id, List<Long> amount, Long idDiscount, String discount) {
+    public List<Object> getCheck(List<Long> id, List<Long> amount, Long idDiscount, String discount)  {
         List<Product> productList = getProducts(id, amount);
         List<String> sumCheck = new ArrayList<>();
+        List<Object> objectList = new ArrayList<>();
 
         Consumer<Product> productConsumer = getProductConsumer(productList);
 
@@ -77,16 +81,25 @@ public record ProductApiService(
                 .map(Product::getSum)
                 .mapToDouble(f -> f).sum();
 
+
         setDiscountInProduct(idDiscount, discount, productList, productConsumer);
 
         double sumAfterDiscount = productList.stream()
                 .map(Product::getSum)
                 .mapToDouble(f -> f).sum();
+
         List<Object> collect = Stream.concat(productList.stream(), sumCheck.stream())
                 .collect(Collectors.toList());
+        collect.add("sum:");
+        collect.add(sum);
+        collect.add("sumAfterDiscount:");
+        collect.add(sumAfterDiscount);
+
+
         return collect;
     }
-    /**
+
+        /**
      * Updates the product with the specified id based on the provided ProductDto.
      *
      * @param productDto the ProductDto object containing the updated data for the product.
@@ -136,11 +149,11 @@ public record ProductApiService(
 
    private Product buildProduct(ProductDto productDto) {
         return Product.builder()
-                .id(productDto.getId())
+                //.id(productDto.getId())
                 .name(productDto.getName())
                 .price(productDto.getPrice())
                 .amount(productDto.getAmount())
-                .metaInfProduct(new MetaInfProduct(productDto.isDiscount()))
+                .metaInfProduct(new MetaInfProduct(true))
                 .localDate(LocalDate.now())
                 .build();
     }
@@ -164,7 +177,9 @@ public record ProductApiService(
                         .peek(productConsumer)
                         .peek(product -> {
                             double sumProduct = product.getSum();
-                            product.setSum(sumProduct*0.9);
+                            double sum = sumProduct*0.9;
+                            double rounded = Math.round(100 * sum) / 100.0;
+                            product.setSum(rounded);
                         })
                         .forEach(productConsumer);
             }

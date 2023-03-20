@@ -76,7 +76,7 @@ public record DiscountApiService
      @return true if the delete was successful, false otherwise
      */
 
-    @Cacheable("myCache")
+   @Cacheable("myCache")
     @Override
     public boolean delete(Long id) {
         if (Objects.nonNull(read(id))) {
