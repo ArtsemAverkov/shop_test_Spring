@@ -10,20 +10,20 @@ import ru.clevertec.testWork.repository.avatarProduct.AvatarProductRepository;
 import java.util.NoSuchElementException;
 
 /**
- This package contains an implementation of the AvatarProductRepository interface for managing product avatars.
- Implementation includes methods for saving, reading products
- @author Artsem Averkov
- @version 1.0
+ * This package contains an implementation of the AvatarProductRepository interface for managing product avatars.
+ * Implementation includes methods for saving, reading products
+ * @author Artsem Averkov
+ * @version 1.0
  */
 
 @Slf4j
 @Service
-public record ImageApiService(AvatarProductRepository avatarProductRepository) implements ImageService{
+public record ImageApiService(AvatarProductRepository avatarProductRepository) implements ImageService {
 
 
     /**
      * Saves an image file for a product.
-     * @param id the ID of the product to associate with the image
+     * @param id    the ID of the product to associate with the image
      * @param image the image file to save
      * @return the ID of the saved image
      */

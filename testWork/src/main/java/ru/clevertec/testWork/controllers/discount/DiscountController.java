@@ -22,7 +22,6 @@ public record DiscountController( DiscountService discountService) {
 
     /**
      * this method creates a new discount
-     *
      * @param discountDto get from server
      * @return the long id of the created book
      */
@@ -41,7 +40,6 @@ public record DiscountController( DiscountService discountService) {
     }
     /**
      * this method updates discount by id
-     *
      * @param discountDto get from server
      * @param id         get from server
      * @return successful and unsuccessful update
@@ -56,7 +54,6 @@ public record DiscountController( DiscountService discountService) {
 
     /**
      * this method removes the discount from the database
-     *
      * @param id get from server
      * @return successful and unsuccessful delete
      */
@@ -69,7 +66,6 @@ public record DiscountController( DiscountService discountService) {
 
     /**
      * this method returns a collection of all discount in the database
-     *
      * @return collection of all discount
      */
 

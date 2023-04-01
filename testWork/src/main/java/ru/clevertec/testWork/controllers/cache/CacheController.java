@@ -14,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/cache")
 public class CacheController  {
     private static String data;
-
     public static void setData(String data) {
         CacheController.data = data;
     }

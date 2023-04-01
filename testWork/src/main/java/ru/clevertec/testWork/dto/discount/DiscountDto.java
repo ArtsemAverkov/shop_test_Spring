@@ -18,6 +18,7 @@ public class DiscountDto {
     @Max(10)
     @Positive
     private long id;
+
     @NotBlank
     private String name;
 }
