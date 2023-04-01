@@ -18,13 +18,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-
 /**
- This package contains the implementation of the ProductService interface for managing products.
- The implementation includes methods for creating, reading, updating, and deleting products, as well as
- getting a list of all products and getting a check for a list of products.
- @author Artsem Averkov
- @version 1.0
+ * This package contains the implementation of the ProductService interface for managing products.
+ * The implementation includes methods for creating, reading, updating, and deleting products, as well as
+ * getting a list of all products and getting a check for a list of products.
+ * @author Artsem Averkov
+ * @version 1.0
  */
 
 @Slf4j
@@ -61,16 +60,16 @@ public record ProductApiService(
 
     /**
      * Retrieves a list of Product and String objects representing a check for a list of products.
-     * @param id        the list of product ids.
-     * @param amount    the list of product amounts.
+     * @param id         the list of product ids.
+     * @param amount     the list of product amounts.
      * @param idDiscount the id of the discount to be applied.
-     * @param discount  the type of discount to be applied.
+     * @param discount   the type of discount to be applied.
      * @return a list of Product and String objects representing the check.
      */
 
     @Cacheable("myCache")
     @Override
-    public List<Object> getCheck(List<Long> id, List<Long> amount, Long idDiscount, String discount)  {
+    public List<Object> getCheck(List<Long> id, List<Long> amount, Long idDiscount, String discount) {
         List<Product> productList = getProducts(id, amount);
         List<String> sumCheck = new ArrayList<>();
         List<Object> objectList = new ArrayList<>();
@@ -94,14 +93,11 @@ public record ProductApiService(
         collect.add(sum);
         collect.add("sumAfterDiscount:");
         collect.add(sumAfterDiscount);
-
-
         return collect;
     }
 
-        /**
+    /**
      * Updates the product with the specified id based on the provided ProductDto.
-     *
      * @param productDto the ProductDto object containing the updated data for the product.
      * @param id         the id of the product to update.
      * @return true if the update was successful, false otherwise.
@@ -110,30 +106,30 @@ public record ProductApiService(
     @Override
     public boolean update(ProductDto productDto, Long id) {
         Product read = read(id);
-            Product product = buildProduct(productDto);
-            product.setId(id);
-            productRepository.save(product);
-            return true;
+        Product product = buildProduct(productDto);
+        product.setId(id);
+        productRepository.save(product);
+        return true;
     }
 
     /**
-     Caches the results of the read method in a cache named "myCache".
-     @param id the id of the product to delete
-     @return true if the product was successfully deleted, false otherwise
+     * Caches the results of the read method in a cache named "myCache".
+     * @param id the id of the product to delete
+     * @return true if the product was successfully deleted, false otherwise
      */
 
     @Cacheable("myCache")
     @Override
     public boolean delete(Long id) {
         Product read = read(id);
-            productRepository.deleteById(id);
-            return true;
+        productRepository.deleteById(id);
+        return true;
     }
 
     /**
-     Retrieves all products from the database using the provided Pageable object.
-     @param pageable an object that provides pagination information for the results
-     @return a list of all products in the database
+     * Retrieves all products from the database using the provided Pageable object.
+     * @param pageable an object that provides pagination information for the results
+     * @return a list of all products in the database
      */
 
     @Override
@@ -142,14 +138,13 @@ public record ProductApiService(
     }
 
     /**
-     Builds a Product object from a ProductDto object.
-     @param productDto the ProductDto object to build the Product object from
-     @return a Product object that was built from the ProductDto object
+     * Builds a Product object from a ProductDto object.
+     * @param productDto the ProductDto object to build the Product object from
+     * @return a Product object that was built from the ProductDto object
      */
 
-   private Product buildProduct(ProductDto productDto) {
+    private Product buildProduct(ProductDto productDto) {
         return Product.builder()
-                //.id(productDto.getId())
                 .name(productDto.getName())
                 .price(productDto.getPrice())
                 .amount(productDto.getAmount())
@@ -159,25 +154,24 @@ public record ProductApiService(
     }
 
     /**
-
-    Applies a discount to a list of products if certain conditions are met.
-    @param idDiscount the id of the discount to apply
-    @param discount a string containing information about the discount
-    @param productList a list of products to apply the discount to
-    @param productConsumer a Consumer object that will be used to update the products
-    */
+     * Applies a discount to a list of products if certain conditions are met.
+     * @param idDiscount      the id of the discount to apply
+     * @param discount        a string containing information about the discount
+     * @param productList     a list of products to apply the discount to
+     * @param productConsumer a Consumer object that will be used to update the products
+     */
 
     private void setDiscountInProduct(Long idDiscount, String discount, List<Product> productList, Consumer<Product> productConsumer) {
         productList.stream()
                 .filter(product -> product.getMetaInfProduct().isDiscount())
                 .collect(Collectors.toList());
-        if (discount.isEmpty()| Objects.nonNull(discountService.read(idDiscount))){
-            if (productList.size()>=5){
+        if (discount.isEmpty() | Objects.nonNull(discountService.read(idDiscount))) {
+            if (productList.size() >= 5) {
                 productList.stream()
                         .peek(productConsumer)
                         .peek(product -> {
                             double sumProduct = product.getSum();
-                            double sum = sumProduct*0.9;
+                            double sum = sumProduct * 0.9;
                             double rounded = Math.round(100 * sum) / 100.0;
                             product.setSum(rounded);
                         })
@@ -187,10 +181,10 @@ public record ProductApiService(
     }
 
     /**
-     Retrieves a list of products from the database using a list of ids and a list of amounts.
-     @param id a list of ids to retrieve products for
-     @param amount a list of amounts to set for each product
-     @return a list of products retrieved from the database
+     * Retrieves a list of products from the database using a list of ids and a list of amounts.
+     * @param id     a list of ids to retrieve products for
+     * @param amount a list of amounts to set for each product
+     * @return a list of products retrieved from the database
      */
 
     private List<Product> getProducts(List<Long> id, List<Long> amount) {
@@ -205,20 +199,20 @@ public record ProductApiService(
     }
 
     /**
-     Returns a Consumer object that can be used to update a list of products.
-     @param productList the list of products to update
-     @return a Consumer object that can be used to update the products
+     * Returns a Consumer object that can be used to update a list of products.
+     * @param productList the list of products to update
+     * @return a Consumer object that can be used to update the products
      */
 
     private Consumer<Product> getProductConsumer(List<Product> productList) {
         Consumer<Product> productConsumer =
-                product-> Comparator.naturalOrder();
+                product -> Comparator.naturalOrder();
         productList.stream()
                 .peek(productConsumer)
                 .peek(product -> {
                     Long amounts = product.getAmount();
                     double price = product.getPrice();
-                    product.setSum(amounts*price);
+                    product.setSum(amounts * price);
                 })
                 .forEach(productConsumer);
         return productConsumer;

@@ -24,6 +24,7 @@ public class Discount {
     @Max(10)
     @Positive
     private Long id;
+
     @NotBlank
     @Pattern(regexp = "^CARD-(\\d...)")
     private String name;

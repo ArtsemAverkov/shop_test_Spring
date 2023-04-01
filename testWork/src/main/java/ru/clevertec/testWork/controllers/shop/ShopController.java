@@ -29,7 +29,6 @@ import org.springframework.data.domain.Pageable;
 import java.io.*;
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_PDF;
 
 @Slf4j
 @RestController
@@ -38,7 +37,6 @@ public record ShopController(ProductService productService,
                              PdfWriteService pdfWriteService) {
     /**
      * this method creates a new product
-     *
      * @param productDto get from server
      * @return the long id of the created product
      */
@@ -73,7 +71,6 @@ public record ShopController(ProductService productService,
 
     /**
      * this method updates product by id
-     *
      * @param productDto get from server
      * @param id         get from server
      * @returт successful and unsuccessful update
@@ -88,7 +85,6 @@ public record ShopController(ProductService productService,
 
     /**
      * this method removes the product from the database
-     *
      * @param id get from server
      * @returт successful and unsuccessful delete
      */
@@ -101,7 +97,6 @@ public record ShopController(ProductService productService,
 
     /**
      * this method returns a collection of all product in the database
-     *
      * @return collection of all product
      */
 

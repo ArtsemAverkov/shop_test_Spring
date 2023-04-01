@@ -23,6 +23,7 @@ public class MetaInfProduct {
     @Max(10)
     @Positive
     private Long id;
+
     boolean isDiscount;
 
     public MetaInfProduct(boolean isDiscount) {

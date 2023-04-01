@@ -19,6 +19,7 @@ public class AvatarProduct {
     @Min(1)
     @Max(100)
     private Long id;
+
     @ToString.Exclude
     private byte[] image;
 }
